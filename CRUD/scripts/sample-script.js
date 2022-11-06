@@ -15,11 +15,12 @@ async function main() {
 
   // We get the contract to deploy
   const CRUD = await hre.ethers.getContractFactory("CRUD");
+  console.log("Deploying CRUD...");
   const crud = await CRUD.deploy();
-
+  console.log("CRUD deployed to:", crud.address);
   await crud.deployed();
 
-  const totalNumberOfEmployee1 = await crud.totalEmployees();
+  
   const response = await crud.create(
     "Krishna",
     "krishna@gmail.com",
@@ -27,14 +28,20 @@ async function main() {
     "0x5FbDB2315678afecb367f032d93F642f64180aa3"
   );
 
-  const totalNumberOfEmployee2 = await crud.totalEmployees();
+
+
+  const totalNumberOfEmployee1 = await crud.totalEmployees();
   const employee = await crud.employees(0);
-  console.log(employee);
+  console.log(totalNumberOfEmployee1.toNumber());
 
   await crud.updateEmployee("Communiti", "krishna@gmail.com");
 
   const employee2 = await crud.employees(0);
-  console.log(employee2);
+  // console.log(employee2);
+ const deleteres =  await crud.deleteEmpolyees('krishna@gmail.com');
+  const totalNumberOfEmployee2 = await crud.totalEmployees();
+  console.log(totalNumberOfEmployee2.toNumber(),'deleteres',);
+
 }
 
 // We recommend this pattern to be able to use async/await everywhere

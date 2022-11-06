@@ -37,6 +37,17 @@ contract CRUD {
         return false;
     }
 
+    function deleteEmpolyees( string memory email) external returns (bool) {
+        for(uint i = 0; i < totalEmployees; i++) {
+            if(compareStrings(employees[i].email, email)) {
+               delete employees[i];
+               totalEmployees--;
+                return true;
+            }
+        } 
+        return false;
+    }
+
     function compareStrings(string memory a, string memory b) internal pure returns (bool) {
         return keccak256(abi.encodePacked(a)) == keccak256(abi.encodePacked(b));
     }
